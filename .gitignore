@@ -1,5 +1,6 @@
 #ignore everything in the build folder
 build/
+mathpack-xcode/
 
 # Compiled source #
 ###################
