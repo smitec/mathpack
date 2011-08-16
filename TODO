@@ -1,0 +1,7 @@
+Besides the obvious addition of more functons etc the follwoing features will eventually be added:
+	- Fix Var: allows a variable to become fixed and simplifies the function accordingly. 
+		For example fix var on "x + 10 + y" fixing y to 10 would result in "x + 20"
+	- Using other function clases as parts of a function string i.e nexted functions
+		this could then create a simple math application similar to a very basic
+		version of matlab (obviously nothing comparible).
+	- Doxygen documentation. Probably should be a pretty high priority

@@ -1,5 +1,6 @@
 #include <math.h>
 #include <vector>
+#include <string>
 #include <map>
 
 //!@class Node Superclass
@@ -106,7 +107,10 @@ public:
 
     //!Simplyfy Tree
     /**
-    TODO
+    simplify uses tree traversal to try and simplify the function
+    the basic methedology is if a branch can be calculated with no variables being passed to it then
+    it can be replaced by a single constant node. This does not yet apply commutative properties but
+    this will hopefully happen in the future.
     */
     bool simplify();
 };
@@ -212,3 +216,49 @@ public:
 //=========================================================
 //Operations Taking a Single Argument
 //=========================================================
+
+/*to add:
+    factorial
+    sin cos tan
+    sinh cosh tanh
+    sqrt
+    abs
+    ceil
+    cloor
+*/
+
+//=========================================================
+//Actual formula Class
+//=========================================================
+
+//!@class Formula
+/**
+ this class is the translation point between strings and classes
+ it uses pretty standard formual parsign methods to split the string
+ into its parts. eventually it will be able to handle RPN as well but
+ for now normal input is okay
+ 
+ fucntions should be input as name(x1,x1...var) = some function of the operands
+ */
+class Formula {
+private:
+    //!head of tree
+    /**
+     uses NonTerminal super class as all it has is children
+     this allows simplify to be called on the head which should
+     then create the most basic simply combieable funciton
+    */
+    Node* head;
+    
+    //!original string used to generate the function class
+    std::string original;
+    
+    //!name given to the function in the string
+    std::string functionName;
+public:
+    Formula();
+    Formula(std::string str);
+    ~Formula();
+    
+};
+
