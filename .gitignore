@@ -2,6 +2,8 @@
 build/
 mathpack-xcode/
 
+*~
+
 # Compiled source #
 ###################
 *.com

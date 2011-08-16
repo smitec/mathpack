@@ -35,13 +35,16 @@ bool NonTerminal::simplify(){
 }
 
 NonTerminal::NonTerminal(std::vector<Node*> children){
+    //change to copy not assign?
     this->children = children;
 }
 
 NonTerminal::~NonTerminal(){
     //free the children
     for (int i = 0; i < this->get_num_children(); i++) {
-        delete this->children[i];
+        if (this->children[i] != NULL) {
+            delete this->children[i];
+        }
     }
 }
 

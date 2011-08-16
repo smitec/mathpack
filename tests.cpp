@@ -71,20 +71,27 @@ void testAdd() {
     Constant* C1 = new Constant(100);
     Constant* C2 = new Constant(200);
     Constant* C3 = new Constant(-50.50);
+    Constant* C4 = new Constant(100);
+    Constant* C5 = new Constant(100);
+    Constant* C6 = new Constant(100);
+    Constant* C7 = new Constant(200);
+    Constant* C8 = new Constant(100);
+    Constant* C9 = new Constant(200);
     VariableResolve* V1 = new VariableResolve('x');
     VariableResolve* V2 = new VariableResolve('y');
+    VariableResolve* V3 = new VariableResolve('x');
 
     Add* A1 = new Add();
     Add* A2 = new Add(C1, C2);
-    Add* A3 = new Add(C1, C3);
+    Add* A3 = new Add(C4, C3);
 
-    Add* A4 = new Add(C1, V1);
+    Add* A4 = new Add(C5, V1);
 
-    Add* A5 = new Add(C1, C2);
-    Add* A6 = new Add(C1, C2);
+    Add* A5 = new Add(C6, C7);
+    Add* A6 = new Add(C8, C9);
     Add* A7 = new Add(A5, A6);
 
-    Add* A8 = new Add(V1, V2);
+    Add* A8 = new Add(V3, V2);
 
     check_equal<bool>(A1->compute(emptyMap), true);
     check_equal<bool>(A2->compute(emptyMap), true);
@@ -116,8 +123,6 @@ void testAdd() {
     delete A2;
     delete A3;
     delete A4;
-    delete A5;
-    delete A6;
     delete A7;
     delete A8;
     std::cout << "End Add Class Test\n\n";
