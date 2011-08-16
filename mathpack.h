@@ -54,7 +54,7 @@ public:
     double get_last_result(){ return this->lastResult;}
 
     //!Gets the number of children
-    int get_num_children(){return this->children.size();}
+    int get_num_children(){return (int)this->children.size();}
 
     //!gets the number of clildren + grandchildren etc etc.
     int get_num_recursive_children();
