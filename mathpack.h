@@ -2,19 +2,16 @@
 #include <vector>
 #include <string>
 #include <map>
-
-//!@class Node Superclass
+//!Superclass.
 /**
-*The Node class forms the basis of all operations
-*within the function class. It is names to represent its
-*use as the node of a tree. A node can have any number of
-*children representing the variable number of operands within a
-*function.
-*
-*for example:
-*sin would have 1 child
-*+ would have 2 children
-*user functions could have any number of children. i.e f(x1,x2,x3...xn)
+The Node class forms the basis of all operations within the function class. 
+It is names to represent its use as the node of a tree. 
+A node can have any number of children representing the variable number of operands within a function.
+
+for example:
+    sin would have 1 child
+    + would have 2 children
+user functions could have any number of children. i.e f(x1,x2,x3...xn)
 */
 class Node {
 protected:
@@ -37,8 +34,8 @@ public:
     *
     *Function is virtual as all subcleasses must have their own version of this function.
     *
-    * @param Variables, a map of the variable values and the chars representing them
-    * @return Bool, represents wheather the Node can compute given the variable information
+    * @param variables a map of the variable values and the chars representing them
+    * @return bool represents wheather the Node can compute given the variable information
     */
     virtual bool compute(std::map<char,double> variables){return false;}
 
@@ -69,10 +66,10 @@ public:
 //=========================================================
 //Divides Node Into Temrinal and Non Terminal Operations
 //=========================================================
-//!@class Terminal Node
+//!Outer node of the formula tree.
 /**
-Classes used to indicate that a node is the outermost node on a branch
-These nodes do not take arguments and will be the stop case for all recursive computations
+Classes used to indicate that a node is the outermost node on a branch.
+These nodes do not take arguments and will be the stop case for all recursive computations.
 */
 class Terminal : public Node {
 public:
@@ -86,7 +83,7 @@ public:
     bool simplify(){return false;}
 };
 
-//!@class NonTerminal Node
+//!Internal node of the formula tree.
 /**
 Classes which take operands. All NonTerminal derivitives will have at least one argument.
 */
@@ -118,6 +115,11 @@ public:
 //=========================================================
 //Divides NonTerminal Based on Number of Operands
 //=========================================================
+//!Operations with strictly 2 operands
+/**
+This covers most basic operations such as + - / and *.
+These functions only need to be able to perform their actions on a lhs and rhs at any time.
+*/
 class TwoOp : public NonTerminal {
 public:
     TwoOp();
@@ -226,12 +228,20 @@ public:
     ceil
     cloor
 */
+//=========================================================
+//Operations Taking a and # of Arguments
+//=========================================================
+/*
+ other functions to add:
+ min
+ max
+ */
 
 //=========================================================
 //Actual formula Class
 //=========================================================
 
-//!@class Formula
+//!Formula.
 /**
  this class is the translation point between strings and classes
  it uses pretty standard formual parsign methods to split the string
