@@ -41,6 +41,10 @@ NonTerminal::NonTerminal(std::vector<Node*> children){
 
 NonTerminal::~NonTerminal(){
     //free the children
+    this->remove_children();
+}
+
+void NonTerminal::remove_children() {
     for (int i = 0; i < this->get_num_children(); i++) {
         if (this->children[i] != NULL) {
             delete this->children[i];
@@ -100,6 +104,11 @@ bool Constant::compute(std::map<char,double> variables){
     return true;
 }
 
+std::string Constant::to_string() {
+    //TODO use << and sstream
+    return "";
+}
+
 //=========================================================
 //Variable Class
 //=========================================================
@@ -127,6 +136,22 @@ bool VariableResolve::compute(std::map<char,double> variables){
 //=========================================================
 //Add Class
 //=========================================================
+Add::Add() : TwoOp() {
+    this->opCode = "+";
+}
+
+Add::Add(Node* lhs, Node* rhs) : TwoOp(lhs,rhs) {
+    this->opCode = "+";
+}
+
+Add::Add(std::vector<Node*> children) : TwoOp(children) {
+    this->opCode = "+";
+}
+
+Add::~Add() {
+
+}
+
 double Add::operation(double lhs, double rhs){
     return lhs + rhs;
 }
@@ -134,6 +159,22 @@ double Add::operation(double lhs, double rhs){
 //=========================================================
 //Subtract Class
 //=========================================================
+Subtract::Subtract() : TwoOp() {
+    this->opCode = "-";
+}
+
+Subtract::Subtract(Node* lhs, Node* rhs) : TwoOp(lhs,rhs) {
+    this->opCode = "-";
+}
+
+Subtract::Subtract(std::vector<Node*> children) : TwoOp(children) {
+    this->opCode = "-";
+}
+
+Subtract::~Subtract() {
+
+}
+
 double Subtract::operation(double lhs, double rhs){
     return lhs - rhs;
 }

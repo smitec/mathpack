@@ -8,6 +8,11 @@ using namespace std;
 map<char, double> emptyMap;
 map<char, double> XYZ;
 
+void testNode();
+void testConst();
+void testVar();
+void testAdd();
+
 //cos i cbf installing boost for check equal
 template <class T>
 void check_equal(T lhs, T rhs) {

@@ -20,6 +20,7 @@ protected:
 
     //!Result of last calculation
     double lastResult;
+    std::string opCode;
 public:
     //!Constructor (Empty for Superclass)
     Node(){};
@@ -56,6 +57,8 @@ public:
 
     //!gets the number of clildren + grandchildren etc etc.
     int get_num_recursive_children();
+    
+    virtual std::string to_string(){return "";}
 
     /*TODO
         Operator <<
@@ -110,6 +113,8 @@ public:
     this will hopefully happen in the future.
     */
     bool simplify();
+    
+    void remove_children();
 };
 
 //=========================================================
@@ -128,6 +133,7 @@ public:
     TwoOp(std::vector<Node*> children) : NonTerminal(children) {};
     virtual double operation(double lhs, double rhs){ return 0;}
     bool compute(std::map<char,double> variables);
+    std::string to_string(){return "";}
 };
 
 //=========================================================
@@ -146,6 +152,8 @@ public:
 
     //Already a terminal node has no children
     bool simplify() {return false;}
+    
+    std::string to_string();
 };
 
 //TODOC
@@ -161,6 +169,8 @@ public:
 
     //Already a terminal node has no children
     bool simplify() {return false;}
+    
+    std::string to_string(){return "";}
 };
 
 //=========================================================
@@ -168,20 +178,20 @@ public:
 //=========================================================
 class Add : public TwoOp {
 public:
-    Add() : TwoOp() {};
-    Add(Node* lhs, Node* rhs) : TwoOp(lhs,rhs) {};
-    Add(std::vector<Node*> children) : TwoOp(children) {};
-    ~Add() {};
+    Add();
+    Add(Node* lhs, Node* rhs);
+    Add(std::vector<Node*> children);
+    ~Add();
 
     double operation(double lhs, double rhs);
 };
 
 class Subtract : public TwoOp {
 public:
-    Subtract() : TwoOp() {};
-    Subtract(Node* lhs, Node* rhs) : TwoOp(lhs,rhs) {};
-    Subtract(std::vector<Node*> children) : TwoOp(children) {};
-    ~Subtract() {};
+    Subtract();
+    Subtract(Node* lhs, Node* rhs);
+    Subtract(std::vector<Node*> children);
+    ~Subtract();
 
     double operation(double lhs, double rhs);
 };
@@ -249,6 +259,7 @@ public:
  for now normal input is okay
  
  fucntions should be input as name(x1,x1...var) = some function of the operands
+ other lines will be computed on the spot.
  */
 class Formula {
 private:
@@ -256,7 +267,7 @@ private:
     /**
      uses NonTerminal super class as all it has is children
      this allows simplify to be called on the head which should
-     then create the most basic simply combieable funciton
+     then create the most basic simply combineable funciton
     */
     Node* head;
     
