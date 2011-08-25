@@ -182,6 +182,25 @@ double Subtract::operation(double lhs, double rhs){
 //=========================================================
 //Multiply Class
 //=========================================================
+Multiply::Multiply() : TwoOp() {
+    this->opCode = "-";
+}
+
+Multiply::Multiply(Node* lhs, Node* rhs) : TwoOp(lhs, rhs) {
+    this->opCode = "-";
+    
+}
+
+Multiply::Multiply::Multiply(std::vector<Node*> children) : TwoOp(children) {
+    this->opCode = "-";
+    
+}
+
+Multiply::~Multiply(){
+    
+    
+}
+
 double Multiply::operation(double lhs, double rhs){
     return lhs * rhs;
 }
@@ -198,4 +217,104 @@ double Divide::operation(double lhs, double rhs){
 //=========================================================
 double Power::operation(double lhs, double rhs){
     return pow(lhs,rhs);
+}
+
+//=========================================================
+//Single Oerator Classes
+//=========================================================
+
+//=========================================================
+//Factorial Class
+//=========================================================
+Factorial::Factorial(){
+    this->opCode = "!";
+    this->lastResult = -1;
+}
+
+Factorial::Factorial(Node* child) {
+    this->opCode = "!";
+    this->children = std::vector<Node*>();
+    this->children.push_back(child);
+    this->lastResult = -1;
+    
+}
+
+Factorial::Factorial(std::vector<Node*> children) {
+    this->opCode = "!";
+    this->children = children;
+    this->lastResult = -1;
+}
+
+Factorial::~Factorial(){
+    
+}
+
+bool Factorial::compute(std::map<char,double> variables) {
+    double result = 0;
+    int temp = 0;
+    
+    if (this->children.size() != 1) {
+        return false;
+    }
+    if (this->children[0]->compute(variables) != true) {
+        return false;
+    }
+    result = this->children[0]->get_last_result();
+    if (result != round(result)) {
+        return false;
+    }
+    if (result < 0) {
+        return false;
+    }
+    //all the tests passed lets compute this factorial
+    temp = int(result);
+    this->lastResult = 1;
+    while (temp--) {
+        this->lastResult *= temp;
+    }
+    return true;
+}
+
+//=========================================================
+//Square Root Class
+//=========================================================
+
+SquareRoot::SquareRoot() {
+    this->opCode = "sqrt";
+    this->lastResult = -1;
+}
+
+SquareRoot::SquareRoot(Node* child) {
+    this->opCode = "sqrt";
+    this->lastResult = -1;
+    this->children = std::vector<Node*>();
+    this->children.push_back(child);
+}
+
+SquareRoot::SquareRoot(std::vector<Node*> children) {
+    this->opCode = "sqrt";
+    this->lastResult = -1;
+    this->children = children;
+}
+
+SquareRoot::~SquareRoot() {
+    
+}
+
+bool SquareRoot::compute(std::map<char,double> variables){
+    double result = 0;
+    
+    if (this->children.size() != 1) {
+        return false;
+    }
+    if (this->children[0]->compute(variables) != true) {
+        return false;
+    }
+    result = this->children[0]->get_last_result();
+    if (result < 0) { //positive only for now
+        return false;
+        
+    }
+    this->lastResult = sqrt(result);
+    return true;
 }

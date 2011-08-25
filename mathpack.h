@@ -198,10 +198,10 @@ public:
 
 class Multiply : public TwoOp {
 public:
-    Multiply() : TwoOp() {};
-    Multiply(Node* lhs, Node* rhs) : TwoOp(lhs,rhs) {};
-    Multiply(std::vector<Node*> children) : TwoOp(children) {};
-    ~Multiply() {};
+    Multiply();
+    Multiply(Node* lhs, Node* rhs);
+    Multiply(std::vector<Node*> children);
+    ~Multiply();
 
     double operation(double lhs, double rhs);
 };
@@ -230,14 +230,33 @@ public:
 //=========================================================
 
 /*to add:
-    factorial
     sin cos tan
     sinh cosh tanh
-    sqrt
     abs
     ceil
-    cloor
+    floor
 */
+
+class Factorial : public NonTerminal {
+public:
+    Factorial();
+    Factorial(Node* child);
+    Factorial(std::vector<Node*> children);
+    ~Factorial();
+    
+    bool compute(std::map<char,double> variables);
+};
+
+class SquareRoot : public NonTerminal {
+public:
+    SquareRoot();
+    SquareRoot(Node* child);
+    SquareRoot(std::vector<Node*> children);
+    ~SquareRoot();
+    
+    bool compute(std::map<char,double> variables);
+};
+
 //=========================================================
 //Operations Taking a and # of Arguments
 //=========================================================
