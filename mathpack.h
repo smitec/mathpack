@@ -2,6 +2,8 @@
 #include <vector>
 #include <string>
 #include <map>
+
+
 //!Superclass.
 /**
 The Node class forms the basis of all operations within the function class. 
@@ -275,11 +277,22 @@ public:
  this class is the translation point between strings and classes
  it uses pretty standard formual parsign methods to split the string
  into its parts. eventually it will be able to handle RPN as well but
- for now normal input is okay
+ for now normal input is okay. input in infix should be converted to RPN then parsed
+ things are much much easier that way things will go like this
+ 
+    opCode(arg1 arg2 arg3....)
+ 
+ nested functions:
+    opCode1(opCode2(arg arg) arg opCode1(ar arg))
  
  fucntions should be input as name(x1,x1...var) = some function of the operands
  other lines will be computed on the spot.
  */
+/*
+TODO: to make this work i need a custom node type that evaluates its child when evaluated
+ then for the function factory i can just build based on the opCode parameter of the function
+ to update this i need to change the var and const ones to c and v or something along those lines.
+*/
 class Formula {
 private:
     //!head of tree
@@ -297,8 +310,13 @@ private:
     std::string functionName;
 public:
     Formula();
-    Formula(std::string str);
+    Formula(std::string str); //the money-maker most of the hard work goes on here
     ~Formula();
     
 };
+
+//can yet but will be able to handel user defined funcs
+std::vector<Node*> avaliableFunctions;
+
+Node* function_factory(std::string opCode, std::vector<Node*> args);
 

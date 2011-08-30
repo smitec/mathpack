@@ -318,3 +318,9 @@ bool SquareRoot::compute(std::map<char,double> variables){
     this->lastResult = sqrt(result);
     return true;
 }
+
+//=========================================================
+//Function Class
+//=========================================================
+
+
